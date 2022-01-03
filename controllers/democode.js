@@ -17,7 +17,9 @@ const getCode = async (req, res) => {
         );
     }
 
-    return res.status(Status.OK).json(apiResponse(Status.OK, Message.OK, user));
+    return res
+      .status(Status.OK)
+      .json(apiResponse(Status.OK, Message.OK, result));
   } catch (error) {
     logger.error(error);
     return res
