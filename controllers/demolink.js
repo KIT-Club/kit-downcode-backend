@@ -1,15 +1,13 @@
-const DemoCodeService = require("../services/democode");
+const DemoLinkModel = require("../services/demolink");
 const logger = require("../utils/winston");
 const apiResponse = require("../utils/apiResponse");
-const DemoLinkService = require("../services/demolink");
 const Status = require("../constants/status");
 const Message = require("../constants/message");
 
-const getCode = async (req, res) => {
+const getLink = async (req, res) => {
   try {
-    console.log(res.locals);
-    const { code } = req.body;
-    const result = await DemoCodeService.getCode(code);
+    const { link } = req.body;
+    const result = await DemoLinkModel.getLink(link);
     if (!result) {
       return res
         .status(Status.NOT_FOUND)
@@ -17,9 +15,6 @@ const getCode = async (req, res) => {
           apiResponse(Status.NOT_FOUND, "This is the message from controller")
         );
     }
-    console.log(result._id);
-    res.locals = result;
-    console.log(res.locals);
     return res
       .status(Status.OK)
       .json(apiResponse(Status.OK, Message.OK, result));
@@ -32,8 +27,7 @@ const getCode = async (req, res) => {
       );
   }
 };
-
-const postCode = async (req, res) => {
+const postLink = async (req, res) => {
   try {
     if (!req.body) {
       return res
@@ -42,13 +36,7 @@ const postCode = async (req, res) => {
           apiResponse(Status.BAD_REQUEST, "This is the message from controller")
         );
     }
-    console.log(req.body);
-    await DemoCodeService.addCode(req.body);
-    return res
-      .status(Status.NO_CONTENT)
-      .json(
-        apiResponse(Status.NO_CONTENT, "This is the message from controller")
-      );
+    await DemoLinkModel.addLink(req.body);
   } catch (error) {
     logger.error(error);
     return res
@@ -58,8 +46,7 @@ const postCode = async (req, res) => {
       );
   }
 };
-
 module.exports = {
-  getCode,
-  postCode,
+  getLink,
+  postLink,
 };

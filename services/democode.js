@@ -1,15 +1,15 @@
-const DemoCodeModel = require("../models/democode");
+const DemoCodeModel = require("../models/data");
 
-const getCode = async (content) => await DemoCodeModel.findOne({ content });
+const getCode = async (code) => await DemoCodeModel.find({ code });
 const getValid = async (content) => {
   const result = await getCode(content);
   return result.valid;
 };
 const addCode = async (content) => {
-  const { code, valid } = content;
-  console.log(code);
-  console.log(valid);
-  return DemoCodeModel.create({ code, valid });
+  content.code = (Math.floor(Math.random() * 100000) + 100000).toString();
+  const { code, link, valid } = content;
+  console.log(content);
+  return DemoCodeModel.create({ code, link, valid });
 };
 
 module.exports = {

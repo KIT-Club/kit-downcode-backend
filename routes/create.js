@@ -4,12 +4,13 @@ const router = express.Router();
 const apiResponse = require("../utils/apiResponse");
 const Status = require("../constants/status");
 const Message = require("../constants/message");
-const DemoCodeMiddleware = require("../middleware/democode");
-const DemoCodeController = require("../controllers/democode");
+const DemoCodeController = require("../controllers/createCode");
 
 /* Neu muon dung middleware thi them vao day
 router.use(middleware) */
-router.get("/", DemoCodeController.getCode);
+router.get("/", (req, res) => {
+  res.send("Day la trang tao code");
+});
 router.post("/", DemoCodeController.postCode);
 router.all("/", (req, res) =>
   res

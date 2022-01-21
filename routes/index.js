@@ -1,11 +1,13 @@
-const democode = require("./democode");
-
+const demolink = require("./demolink");
 const apiResponse = require("../utils/apiResponse");
 const Status = require("../constants/status");
 const Message = require("../constants/message");
+const search = require("./search");
+const create = require("./create");
 
 module.exports = (app) => {
-  app.use("/democode", democode);
+  app.use("/create", create);
+  app.use("/search", search);
   app.all("/", (req, res) =>
     res.status(Status.OK).json(apiResponse(Status.OK, "This API is working"))
   );

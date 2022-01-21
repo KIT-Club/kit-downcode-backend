@@ -11,4 +11,4 @@ const CodeSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("code", CodeSchema);
+module.exports = mongoose.model("link", CodeSchema);

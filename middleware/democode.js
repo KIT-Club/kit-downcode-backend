@@ -4,6 +4,7 @@ const apiResponse = require("../utils/apiResponse");
 
 const Status = require("../constants/status");
 const Message = require("../constants/message");
+const democode = require("../models/democode");
 
 const checkCodeValid = async (req, res, next) => {
   try {
@@ -20,6 +21,7 @@ const checkCodeValid = async (req, res, next) => {
         );
     }
     req.code = code;
+    res.locals = await DemoCodeService.getCode(code);
     next();
   } catch (error) {
     logger.error(error);
