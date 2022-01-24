@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const morgan = require("morgan");
 const logger = require("./winston");
 

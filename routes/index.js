@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const democode = require("./democode");
 
 const apiResponse = require("../utils/apiResponse");

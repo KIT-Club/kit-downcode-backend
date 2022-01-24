@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const DemoCodeService = require("../services/democode");
 const logger = require("../utils/winston");
 const apiResponse = require("../utils/apiResponse");
@@ -7,7 +8,7 @@ const Message = require("../constants/message");
 
 const checkCodeValid = async (req, res, next) => {
   try {
-    const { code } = req.body;
+    const {code} = req.body;
     const valid = await DemoCodeService.getValid(code);
     if (!valid) {
       return res

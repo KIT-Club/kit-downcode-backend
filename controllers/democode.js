@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const DemoCodeService = require("../services/democode");
 const logger = require("../utils/winston");
 const apiResponse = require("../utils/apiResponse");
@@ -7,7 +8,7 @@ const Message = require("../constants/message");
 
 const getCode = async (req, res) => {
   try {
-    const { code } = req.body;
+    const {code} = req.body;
     const result = await DemoCodeService.getCode(code);
     if (!result) {
       return res
