@@ -21,7 +21,6 @@ const checkCodeValid = async (req, res, next) => {
         );
     }
     req.code = code;
-    res.locals = await DemoCodeService.getCode(code);
     next();
   } catch (error) {
     logger.error(error);

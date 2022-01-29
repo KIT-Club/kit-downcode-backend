@@ -4,7 +4,7 @@ const router = express.Router();
 const apiResponse = require("../utils/apiResponse");
 const Status = require("../constants/status");
 const Message = require("../constants/message");
-const DemoCodeController = require("../controllers/searchCode");
+const DemoCodeController = require("../controllers/link");
 
 /* Neu muon dung middleware thi them vao day
 router.use(middleware) */

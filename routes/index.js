@@ -1,4 +1,3 @@
-const demolink = require("./demolink");
 const apiResponse = require("../utils/apiResponse");
 const Status = require("../constants/status");
 const Message = require("../constants/message");
