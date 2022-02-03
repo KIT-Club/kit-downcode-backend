@@ -1,56 +1,40 @@
 /* eslint-disable prettier/prettier */
-const randomCodeModel = require("../models/codemodels");
-const {customAlphabet} = require("nanoid");
+const nanoid = require("../utils/nanoid");
+const CodeModel = require("../models/link");
 
-const nanoid = customAlphabet("1234567890", 8);
+const isExist = async (item) => {
+  const linkIsExist = await CodeModel.findOne({
+    link: item.link,
+  });
+  return linkIsExist;
+};
 
-const codeData = (links) => {
+const createCode = async (item) => {
+  const newCode = nanoid();
+  const newLink = new CodeModel({
+    _id: newCode,
+    link: item.link,
+  });
+  await newLink.save();
+  return newLink;
+};
+
+const getCode = async (links) => {
   let data = [];
 
-  links.map(async (item) => {
-    const isExit = await randomCodeModel.findOne({
-      link: item.link,
-    });
-    if (isExit) {
-      data.push({link: item.link, code: isExit.code});
-    } else {
-      const newCode = nanoid();
-      const newLink = new randomCodeModel({
-        link: item.link,
-        code: newCode,
-      });
-      await newLink.save();
-
-      data.push({link: newLink.link, code: newLink.code});
-    }
-  });
+  await Promise.all(
+    links.map(async (item) => {
+      const linkItem = await isExist(item);
+      if (linkItem) {
+        data.push({_id: linkItem._id, link: linkItem.link});
+      } else {
+        const newLinkItem = await createCode(item);
+        data.push({_id: newLinkItem._id, link: newLinkItem.link});
+      }
+    })
+  );
 
   return data;
 };
 
-module.exports = {codeData};
-
-// links.map((item) => {
-//   randomCodeModel
-//     .findOne({ link: item.link })
-//     .exec()
-//     .then((data1) => {
-//       if (data1) {
-//         data.push({ link: data1.link, code: data1.code });
-//       } else {
-//         const newCode = nanoid();
-//         const newLink = new randomCodeModel({
-//           link: item.link,
-//           code: newCode,
-//         });
-//         // await randomCodeModel.create(newLink).exec();
-//         newLink.save();
-
-//         data.push({ link: newLink.link, code: newLink.code });
-//       }
-
-//       return data1;
-//       // console.log(data1);
-//     })
-//     .catch((err) => console.error(err));
-// });
+module.exports = {getCode};

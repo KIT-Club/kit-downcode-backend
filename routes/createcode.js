@@ -6,14 +6,13 @@ const apiResponse = require("../utils/apiResponse");
 const Status = require("../constants/status");
 const Messsage = require("../constants/message");
 
-const createCodeController = require("../controllers/createCodeController");
-const printCode = require("../controllers/printCode");
+const CreateCodeController = require("../controllers/createcode");
 const middleware = require("../middleware/checkLinkValid");
 
 router.get("/create", (req, res) => {
   res.json("Create code page");
 });
-router.post("/create", createCodeController);
+router.post("/create", middleware.checkLinkValid, CreateCodeController);
 router.all("/create", (req, res) => {
   res
     .status(Status.UNAUTHORIZED)
